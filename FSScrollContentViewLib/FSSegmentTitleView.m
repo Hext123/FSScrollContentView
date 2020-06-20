@@ -102,7 +102,9 @@
     UIFont *titleFont = _titleFont;
     UIButton *selectBtn = self.itemBtnArr[self.selectIndex];
     titleFont = selectBtn.isSelected?_titleSelectFont:_titleFont;
-    CGFloat indicatorWidth = [FSSegmentTitleView getWidthWithString:self.titlesArr[self.selectIndex] font:titleFont];
+    CGSize indicatorSize = [FSSegmentTitleView getSizeWithString:self.titlesArr[self.selectIndex] font:titleFont];
+    CGFloat indicatorWidth = indicatorSize.width;
+    CGFloat indicatorHeight = indicatorSize.height;
     [UIView animateWithDuration:(animated?0.05:0) animations:^{
         switch (_indicatorType) {
             case FSIndicatorTypeDefault:
@@ -115,6 +117,10 @@
             case FSIndicatorTypeCustom:
                 self.indicatorView.center = CGPointMake(selectBtn.center.x, CGRectGetHeight(self.scrollView.bounds) - 1);
                 self.indicatorView.bounds = CGRectMake(0, 0, indicatorWidth + _indicatorExtension*2, 2);
+                break;
+            case FSIndicatorTypeBgCustom:
+                self.indicatorView.center = selectBtn.center;
+                self.indicatorView.bounds = CGRectMake(0, 0, indicatorWidth + _indicatorExtensionSize.width, indicatorHeight + _indicatorExtensionSize.height);
                 break;
             case FSIndicatorTypeNone:
                 self.indicatorView.frame = CGRectZero;
@@ -308,8 +314,18 @@
  @return 字符串长度
  */
 + (CGFloat)getWidthWithString:(NSString *)string font:(UIFont *)font {
+    return [self getSizeWithString:string font:font].width;
+}
+/**
+ 计算字符串宽高
+ 
+ @param string string
+ @param font font
+ @return 字符串宽高
+ */
++ (CGSize)getSizeWithString:(NSString *)string font:(UIFont *)font {
     NSDictionary *attrs = @{NSFontAttributeName : font};
-    return [string boundingRectWithSize:CGSizeMake(0, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.width;
+    return [string boundingRectWithSize:CGSizeMake(0, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
 /**

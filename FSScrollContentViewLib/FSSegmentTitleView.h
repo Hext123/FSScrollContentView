@@ -14,6 +14,7 @@ typedef enum : NSUInteger {
     FSIndicatorTypeEqualTitle,//与文字长度相同
     FSIndicatorTypeCustom,//自定义文字边缘延伸宽度
     FSIndicatorTypeNone,
+    FSIndicatorTypeBgCustom,//指示器居中作为文字的背景,自定义文字边缘延伸宽高
 } FSIndicatorType;//指示器类型枚举
 
 @protocol FSSegmentTitleViewDelegate <NSObject>
@@ -88,6 +89,16 @@ typedef enum : NSUInteger {
  在FSIndicatorTypeCustom时可自定义此属性，为指示器一端延伸长度，默认5
  */
 @property (nonatomic, assign) CGFloat indicatorExtension;
+
+/**
+ 在FSIndicatorTypeBgCustom时可自定义此属性，为指示器相对文字多出来的宽高，默认{0,0}, 即指示器与文字等宽高
+ */
+@property (nonatomic, assign) CGSize indicatorExtensionSize;
+
+/**
+ 指示器的view, 用于自定义内容
+*/
+@property (nonatomic, strong, readonly) UIView *indicatorView;
 
 /**
  对象方法创建FSSegmentTitleView
