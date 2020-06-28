@@ -15,7 +15,7 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 
 @property (nonatomic, weak) UIViewController *parentVC;//父视图
 @property (nonatomic, strong) NSArray *childsVCs;//子视图数组
-@property (nonatomic, weak) UICollectionView *collectionView;
+@property (nonatomic, weak, readwrite) UICollectionView *collectionView;
 @property (nonatomic, assign) CGFloat startOffsetX;
 @property (nonatomic, assign) BOOL isSelectBtn;//是否是滑动
 

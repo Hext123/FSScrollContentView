@@ -73,4 +73,7 @@
  */
 @property (nonatomic, assign) BOOL contentViewCanScroll;
 
+/// 内部 collectionView, 外部一般不用关心
+@property (nonatomic, weak, readonly) UICollectionView *collectionView;
+
 @end
